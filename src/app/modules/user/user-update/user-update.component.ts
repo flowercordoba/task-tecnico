@@ -1,42 +1,57 @@
-import { Component } from '@angular/core';
-import { IUser } from 'src/app/core/interfaces/index.interfaces';
-import { Usuario } from 'src/app/core/models/user.model';
-import { UserService } from 'src/app/services/user.service';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UserService } from "src/app/services/user.service";
+import { Usuario } from "src/app/core/models/user.model";
 
 @Component({
-  selector: 'app-user-update',
-  templateUrl: './user-update.component.html',
-  styleUrls: ['./user-update.component.sass']
+  selector: "app-user-update",
+  templateUrl: "./user-update.component.html",
+  styleUrls: ["./user-update.component.sass"],
 })
-export class UserUpdateComponent {
-  userProfile!: Usuario; 
+export class UserUpdateComponent implements OnInit {
+  public perfilForm!: FormGroup;
+  public usuario: Usuario;
 
-  constructor(private authService: UserService) { }
-
-
+  constructor(private fb: FormBuilder, private usuarioService: UserService) {
+    this.usuario = usuarioService.usuario;
+    this.initForm();
+  }
 
   ngOnInit(): void {
-    this.getUserProfile();
+    this.loadUserProfile();
   }
 
-  getUserProfile() {
-    this.authService.getUserDetails().subscribe(
-      (usuario: Usuario) => {
-        this.userProfile = usuario;
-      },
-      (error) => {
-        console.error('Error al obtener los datos del usuario', error);
-      }
-    );
+  initForm() {
+    this.perfilForm = this.fb.group({
+      // name: [ this.usuario.name, Validators.required ],
+      // email: [ this.usuario.email, [Validators.required, Validators.email] ],
+    });
   }
 
+  loadUserProfile() {
+    this.usuarioService.getUserDetails().subscribe(user => {
+      this.usuario = user;
+      this.perfilForm.patchValue({
+        name: user.name,
+        email: user.email,
+      });
+    });
+  }
 
-
-logout() {
-throw new Error('Method not implemented.');
-}
-goToUserProfile() {
-throw new Error('Method not implemented.');
-}
-
+  actualizarPerfil() {
+    if (this.perfilForm.valid) {
+      this.usuarioService.updatePerfil(this.perfilForm.value).subscribe({
+        next: (resp) => {
+          const { name, email } = this.perfilForm.value;
+          
+          this.usuario.name = name;
+          this.usuario.email = email;
+          alert('Perfil actualizado con éxito');
+        },
+        error: (err) => {
+          alert('Ocurrió un error al actualizar el perfil');
+        }
+      });
+    }
+  }
 }

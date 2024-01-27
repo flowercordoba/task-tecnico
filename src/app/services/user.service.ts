@@ -39,7 +39,7 @@ export class UserService {
     );
 
   }
-  // ... otros métodos ...
+
 
 getUserDetails(): Observable<Usuario> {
   return this.http.get<Usuario>(`${base_url}/users/me`, {
@@ -97,6 +97,23 @@ getUserDetails(): Observable<Usuario> {
   get uid():string {
     return this.usuario.uid || '';
   }
+
+
+  updatePerfil( data: { email: string, name: string, role: string } ) {
+
+    data = {
+      ...data,
+      role: this.usuario.role!
+    };
+
+    return this.http.put(`${ base_url }/users/${ this.uid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+
+  }
+
 
 
 
