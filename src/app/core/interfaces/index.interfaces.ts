@@ -7,7 +7,7 @@ export interface IUser {
 export interface ILoginData {
   email: string;
   password: string;
-  remember: boolean;
+  remember?: boolean;
 }
 
 export interface IRegisterData {

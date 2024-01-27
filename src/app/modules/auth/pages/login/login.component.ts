@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ILoginData } from 'src/app/core/interfaces/index.interfaces';
 import { UserService } from 'src/app/services/user.service';
+
 
 
 @Component({
@@ -9,27 +12,53 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent {
-  loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: UserService) {
-    this.loginForm = this.fb.group({
-      email: ['flowercordoba7@gmail.com', [Validators.required, Validators.email]],
-      password: ['flower', [Validators.required, Validators.minLength(6)]],
-    });
-  }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      this.authService.loginUser(this.loginForm.value).subscribe(
-        response => {
-          console.log(response);
-          localStorage.setItem('token', response.token);
-        },
-        error => {
-          console.error(error);
-          // Manejar errores, como mostrar un mensaje al usuario
-        }
-      );
+  public formSubmitted = false;
+
+  public loginForm = this.fb.group({
+    email: [ localStorage.getItem('email') || '' , [ Validators.required, Validators.email ] ],
+    password: ['', Validators.required ],
+    remember: [false]
+
+
+  });
+
+  constructor( private router: Router,
+    private fb: FormBuilder,
+    private usuarioService: UserService,
+
+    ) { }
+
+    login() {
+      const email = this.loginForm.get('email')?.value || '';
+      const password = this.loginForm.get('password')?.value || '';
+      const remember = this.loginForm.get('remember')?.value || false;
+
+      const loginData: ILoginData = {
+        email,
+        password,
+        remember
+      };
+
+      this.usuarioService.loginUser(loginData)
+        .subscribe(resp => {
+          if (remember) {
+            localStorage.setItem('email', email);
+          } else {
+            localStorage.removeItem('email');
+          }
+          this.router.navigateByUrl('/');
+        }, (err) => {
+          alert('error');
+        });
     }
-  }
+
+
+
+
+
+
+
+
 }
