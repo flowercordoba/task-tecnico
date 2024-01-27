@@ -8,6 +8,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UserUpdateComponent } from './user-update/user-update.component';
+import { UsersComponent } from './users/users.component';
+import { UserListComponent } from './pages/user-list/user-list.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     UserDetailComponent,
     PagesComponent,
     UserProfileComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    UsersComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,7 @@ const routes: Routes = [
   canActivate: [ AuthGuard ],},
   {path:'auth',loadChildren:()=>import('./modules/auth/auth.module').then(m=>m.AuthModule)},
   {path:'user',loadChildren:()=>import('./modules/user/user.module').then(m=>m.UserModule)},
+  {path:'grafica',loadChildren:()=>import('./modules/grafica/grafica.module').then(m=>m.GraficaModule)},
 ];
 
 @NgModule({

@@ -1,28 +1,57 @@
-<!-- app-sidebar.component.html -->
-<aside class="w-64 h-screen bg-gray-800 text-white p-4">
-  <div class="flex flex-col justify-between h-full">
-    <!-- Sección de navegación -->
+<!-- Sidebar con Tailwind CSS -->
+<aside class="bg-gray-800 text-white w-64 min-h-screen">
+  <div class="py-4 px-6">
+    <!-- Logo o Nombre de la Aplicación -->
+    <div class="mb-6">
+      <a href="#" class="text-white text-2xl font-semibold">HABITASK S.A.</a>
+    </div>
+
+    <!-- Lista de Navegación -->
     <nav>
-      <ul class="space-y-2">
-        <li><a href="#" class="block hover:bg-gray-700 p-2 rounded">Inicio</a></li>
-        <li><a href="#" class="block hover:bg-gray-700 p-2 rounded">Tareas</a></li>
-        <li><a href="#" class="block hover:bg-gray-700 p-2 rounded">Proyectos</a></li>
-        <li><a href="#" class="block hover:bg-gray-700 p-2 rounded">Usuarios</a></li>
-        <!-- ... otros enlaces ... -->
+      <ul>
+        <!-- Item de Navegación -->
+        <li class="mb-3">
+          <a routerLink="/" routerLinkActive="bg-gray-900" class="flex items-center py-2 px-3 rounded hover:bg-gray-700">
+            <svg class="h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <!-- Icono, puedes cambiarlo -->
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h6l6 9v-18l6 9h-6"></path>
+            </svg>
+            Dashboard
+          </a>
+        </li>
+
+        <!-- Otros Items de Navegación -->
+        <li class="mb-3">
+          <a routerLink="/tareas" routerLinkActive="bg-gray-900" class="flex items-center py-2 px-3 rounded hover:bg-gray-700">
+            <svg class="h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <!-- Cambiar el icono según sea necesario -->
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01"></path>
+            </svg>
+            Tareas
+          </a>
+        </li>
+
+        <li class="mb-3">
+          <a routerLink="/user/list" routerLinkActive="bg-gray-900" class="flex items-center py-2 px-3 rounded hover:bg-gray-700">
+            <svg class="h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <!-- Cambiar el icono según sea necesario -->
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01"></path>
+            </svg>
+            Usuarios
+          </a>
+        </li>
+
+        <li class="mb-3">
+          <a routerLink="/grafica" routerLinkActive="bg-gray-900" class="flex items-center py-2 px-3 rounded hover:bg-gray-700">
+            <svg class="h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01"></path>
+            </svg>
+            Grafica
+          </a>
+        </li>
+
+
       </ul>
     </nav>
-
-    <!-- Sección de usuario y logout -->
-    <div>
-      <div class="mb-4">
-        <!-- Información del usuario -->
-        <div class="mb-4">
-          <img src="path_to_profile_pic.jpg" alt="User" class="w-10 h-10 rounded-full">
-          <span>Usuario: Flower Moreno</span>
-        </div>
-        <!-- Botón de logout -->
-        <button class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cerrar Sesión</button>
-      </div>
-    </div>
   </div>
 </aside>
