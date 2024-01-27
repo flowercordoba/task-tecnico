@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { ILoginData, IRegisterData } from '../core/interfaces/index.interfaces';
+import { ILoginData, IRegisterData, IUser } from '../core/interfaces/index.interfaces';
+import { Usuario } from '../core/models/user.model';
 
 const base_url = environment.base_url;
 
@@ -11,6 +12,7 @@ const base_url = environment.base_url;
   providedIn: 'root'
 })
 export class UserService {
+  public usuario!: Usuario;
 
   constructor( private http: HttpClient,
     private router: Router,) { }
@@ -20,21 +22,46 @@ export class UserService {
   }
 
   validarToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
 
     return this.http.get(`${ base_url }/auth/renew`, {
       headers: {
-        'x-token': token
+        'x-token': this.token
       }
     }).pipe(
-      tap( (resp: any) => {
+      map( (resp: any) => {
+        const { email, google, name, role, img = '', uid } = resp.usuario;
+        console.log('====>',resp.usuario)
+        this.usuario = new Usuario( name, email, '', img, google, role, uid );
         localStorage.setItem('token', resp.token );
+        return true;
       }),
-      map( resp => true),
       catchError( error => of(false) )
     );
 
   }
+  // ... otros métodos ...
+
+getUserDetails(): Observable<Usuario> {
+  return this.http.get<Usuario>(`${base_url}/users/me`, {
+    headers: {
+      'x-token': this.token
+    }
+  }).pipe(
+    map((resp: any) => new Usuario(
+      resp.usuario.name, 
+      resp.usuario.email, 
+      '', // password no es necesario
+      resp.usuario.img, 
+      resp.usuario.google, 
+      resp.usuario.role, 
+      resp.usuario.uid
+    )),
+    catchError(error => {
+      console.error('Error al obtener los detalles del usuario', error);
+      return of(new Usuario('', '', ''));
+    })
+  );
+}
 
 
   RegisterUser( formData: IRegisterData ) {
@@ -62,6 +89,15 @@ export class UserService {
                 );
 
   }
+
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get uid():string {
+    return this.usuario.uid || '';
+  }
+
 
 
 }
