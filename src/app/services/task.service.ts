@@ -1,47 +1,50 @@
 // src/app/services/task.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment'; // Ajusta la ruta si es necesario
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { TaskModel } from '../core/models/task.model';
+import { CargarTareas, IUser } from '../core/interfaces/index.interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl: string = `${environment.base_url}/task`; // Ajusta esto según tu configuración
+  private apiUrl: string = `${environment.base_url}/tasks/all`; // Asegúrate de que la URL es correcta
 
   constructor(private http: HttpClient) {}
 
-  // Obtener todas las tareas
-  getAllTasks(): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>(`${this.apiUrl}/all`);
+  cargarTareas(): Observable<TaskModel[]> {
+    return this.http.get<CargarTareas>(this.apiUrl, { headers: this.headers }).pipe(
+ 
+map(resp => {
+  return resp.tareas.map(taskData => {
+    const creator: any = taskData.creator || { uid: '', name: '', email: '' }; // Ajusta los valores predeterminados según sea necesario
+    const assignedTo: any = taskData.assignedTo || { uid: '', name: '', email: '' }; // Ajusta los valores predeterminados según sea necesario
+
+    return new TaskModel(
+      taskData.title,
+      taskData.description,
+      creator.name,
+      assignedTo,
+      taskData._id,
+      taskData.completed,
+      taskData.createdAt,
+      taskData.updatedAt,
+    );
+  });
+})
+
+    );
   }
 
-  // Obtener una tarea específica por su ID
-  getTaskById(taskId: string): Observable<TaskModel> {
-    return this.http.get<TaskModel>(`${this.apiUrl}/${taskId}`);
+  get token(): string {
+    return localStorage.getItem('token') || '';
   }
 
-  // Crear una nueva tarea
-  createTask(taskData: TaskModel): Observable<TaskModel> {
-    return this.http.post<TaskModel>(`${this.apiUrl}/create`, taskData);
+  get headers() {
+    return {
+      'x-token': this.token,
+    };
   }
-
-  // Actualizar una tarea existente
-  updateTask(taskId: string, taskData: TaskModel): Observable<TaskModel> {
-    return this.http.put<TaskModel>(`${this.apiUrl}/update/${taskId}`, taskData);
-  }
-
-  // Marcar una tarea como completada
-  markTaskAsCompleted(taskId: string): Observable<TaskModel> {
-    return this.http.patch<TaskModel>(`${this.apiUrl}/complete/${taskId}`, {});
-  }
-
-  // Eliminar una tarea
-  deleteTask(taskId: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/delete/${taskId}`);
-  }
-
-
 }

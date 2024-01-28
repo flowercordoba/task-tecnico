@@ -1,24 +1,17 @@
-<header class="bg-blue-500 text-white p-4 flex justify-between items-center">
-  <!-- Logo y nombre de la empresa -->
-  <div class="flex items-center">
-    <img src="path_to_logo.png" alt="Logo" class="h-8 mr-2"> <!-- Ajusta el src y tamaño según sea necesario -->
-    <span class="font-semibold text-xl">HABITASK S.A.</span>
-  </div>
 
-  <!-- Navegación -->
-  <nav>
-    <ul class="flex space-x-4">
-      <li><a href="#" class="hover:text-gray-200">Inicio</a></li>
-      <li><a href="#" class="hover:text-gray-200">Tareas</a></li>
-      <li><a href="#" class="hover:text-gray-200">Proyectos</a></li>
-      <!-- ... otros enlaces ... -->
-    </ul>
-  </nav>
 
-  <!-- Información del usuario y autenticación -->
-  <div class="flex items-center">
-    <span class="mr-2">Usuario: Flower Moreno</span> <!-- Ejemplo, reemplazar con datos dinámicos -->
-    <button (click)="goToUserProfile()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Perfil</button>
-    <button (click)="logout()" class="ml-4 bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">Cerrar Sesión</button>
+<header class="bg-blue-900 text-white py-4">
+  <div class="container mx-auto flex justify-between items-center px-6">
+    <h1 class="text-xl font-bold"><a routerLink="/home">HABITASK S.A.</a></h1>
+    <div class="flex items-center">
+      <span class="mr-2" ></span>
+      <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"><a routerLink="/user/profile">Perfil</a></button>
+
+      <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        Cerrar Sesión
+      </button>
+    </div>
   </div>
 </header>
+
+

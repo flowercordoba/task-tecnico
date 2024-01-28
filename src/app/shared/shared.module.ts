@@ -6,6 +6,7 @@ import { GraficaComponent } from './grafica/grafica.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { NgChartsModule } from 'ng2-charts';
+import { P404Component } from './p-404/p-404.component';
 
 
 
@@ -14,7 +15,8 @@ import { NgChartsModule } from 'ng2-charts';
     HeaderComponent,
     FooterComponent,
     // GraficaComponent,
-    SidebarComponent
+    SidebarComponent,
+    P404Component
     
   ],
   imports: [

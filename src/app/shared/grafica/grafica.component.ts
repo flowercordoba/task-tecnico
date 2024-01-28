@@ -28,20 +28,8 @@ export class GraficaComponent implements OnInit {
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.loadChartData();
+   
   }
 
-  private loadChartData(): void {
-    this.taskService.getAllTasks().subscribe((tasks: TaskModel[]) => {
-      // Usa TaskCount como el tipo para el acumulador
-      const taskCountByUser = tasks.reduce((acc: TaskCount, task) => {
-        const userId = task.assignedTo;
-        acc[userId] = (acc[userId] || 0) + 1;
-        return acc;
-      }, {} as TaskCount); // Inicia el acumulador como un objeto de tipo TaskCount
 
-      // this.barChartLabels = Object.keys(taskCountByUser);
-      this.barChartData[0].data = Object.values(taskCountByUser);
-    });
-  }
 }

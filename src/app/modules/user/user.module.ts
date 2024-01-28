@@ -27,6 +27,10 @@ import { UserListComponent } from './pages/user-list/user-list.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule
+  ],
+  exports:[
+    UserListComponent
+
   ]
 })
 export class UserModule { }

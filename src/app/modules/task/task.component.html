@@ -1,0 +1,25 @@
+<div class="min-h-screen bg-blue-50 flex flex-col">
+    <!-- Header -->
+    <app-header></app-header>
+  
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-6 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Create Task Component -->
+        <div class="md:col-span-1 bg-white rounded-lg shadow p-4">
+          <app-create-task></app-create-task>
+        </div>
+        
+        <!-- List Component -->
+        <div class="md:col-span-2 bg-white rounded-lg shadow p-4">
+          <app-list></app-list>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Update Component - Could be a modal or hidden div -->
+    <div id="update-panel" class="fixed inset-0 bg-white bg-opacity-75 hidden justify-center items-center">
+      <app-update class="bg-yellow-100 rounded-lg shadow p-4"></app-update>
+    </div>
+  </div>
+  
