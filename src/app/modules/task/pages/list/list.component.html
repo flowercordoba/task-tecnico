@@ -1,33 +1,46 @@
-
-<div class="overflow-x-auto">
-  <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-    <thead class="ltr:text-left rtl:text-right">
-      <tr>
-        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Title</th>
-        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Date</th>
-        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Creator</th>
-        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Description</th>
-        <th class="px-4 py-2"></th>
-      </tr>
-    </thead>
-
-    <tbody class="divide-y divide-gray-200">
-      <tr>
-        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">John Doe</td>
-        <td class="whitespace-nowrap px-4 py-2 text-gray-700">24/05/1995</td>
-        <td class="whitespace-nowrap px-4 py-2 text-gray-700">Web Developer</td>
-        <td class="whitespace-nowrap px-4 py-2 text-gray-700">$120,000</td>
-        <td class="whitespace-nowrap px-4 py-2">
-          <a
-            href="#"
-            class="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
-          >
-            Ver
-          </a>
-        </td>
-      </tr>
-
-
-    </tbody>
-  </table>
+<!-- Búsqueda de usuario -->
+<div class="flex flex-col animate-fade-in-fast">
+  <div class="bg-white shadow rounded-lg">
+      <div class="p-4">
+          <input type="text" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" placeholder="Buscar tarea...."/>
+      </div>
+  </div>
+</div>
+<!-- Tabla de usuarios -->
+<div class="flex flex-col">
+  <div class="bg-white shadow rounded-lg">
+      <div class="p-4">
+          <h4 class="text-lg font-semibold">Tareas</h4>
+          <h6 class="text-sm text-gray-600">Lista de tarea</h6>
+          <div class="overflow-x-auto mt-6">
+              <table class="w-full divide-y divide-gray-200">
+                  <thead>
+                      <tr>
+                          <th class="px-4 py-2">Description</th>
+                          <th class="px-4 py-2">Titulo</th>
+                          <th class="px-4 py-2">Creador</th>
+                          <th class="px-4 py-2">Completada</th>
+                          <th class="px-4 py-2">Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                      <tr>
+                          <td class="px-4 py-2">Lunar probe project</td>
+                          <td class="px-4 py-2">Lunar probe project</td>
+                          <td class="px-4 py-2">Lunar probe project</td>
+                          <td class="px-4 py-2">Lunar probe project</td>
+                          <td class="px-4 py-2">
+                              <a  class="text-blue-600 hover:text-blue-900">Editar</a>
+                              <a  class="text-red-600 hover:text-red-900">Borrar</a>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div class="flex justify-between mt-4">
+              <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Anteriores</button>
+              <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Siguientes</button>
+          </div>
+      </div>
+  </div>
 </div>

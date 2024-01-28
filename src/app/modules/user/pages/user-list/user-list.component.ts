@@ -11,6 +11,9 @@ import Swal from "sweetalert2";
   styleUrls: ["./user-list.component.sass"],
 })
 export class UserListComponent implements OnInit, OnDestroy {
+chageRol() {
+throw new Error('Method not implemented.');
+}
 verDetalle(arg0: string|undefined) {
 throw new Error('Method not implemented.');
 }
@@ -81,8 +84,7 @@ throw new Error('Method not implemented.');
       .subscribe(resp => console.log(resp));
   }
 
-  eliminarUsuario( usuario: Usuario): void {
-
+  eliminarUsuario( usuario: Usuario) {
     Swal.fire({
       title: '¿Borrar usuario?',
       text: `Esta a punto de borrar a ${ usuario.name }`,
@@ -115,4 +117,6 @@ throw new Error('Method not implemented.');
   // abrirModal(usuario: Usuario): void {
   //   this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img);
   // }
+
+
 }

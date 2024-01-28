@@ -44,10 +44,16 @@
             <td class="px-6 py-4 whitespace-nowrap">
               {{ usuario.role }}
             </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <select [(ngModel)]="usuario.role" (change)="cambiarRole(usuario)">
+                <option value="">USER_ROLE</option>
+                <option value="">ADMIN_ROLE</option>
+              </select>
+            </td>
             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2" (click)="verDetalle(usuario.uid)">Ver</a>
-              <a href="#" class="text-green-600 hover:text-green-900 mr-2" (click)="editarUsuario(usuario.uid)">Editar</a>
-              <a class="text-red-600 hover:text-red-900 cursor-pointer"  (click)="eliminarUsuario(usuario)">Eliminar</a>
+              <!-- <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2" (click)="verDetalle(usuario.uid)">Ver</a> -->
+              <!-- <a href="#" class="text-green-600 hover:text-green-900 mr-2" (click)="editarUsuario(usuario.uid)">Editar</a> -->
+              <a class="text-red-600 hover:text-red-900 cursor-pointer" (click)="eliminarUsuario(usuario)">Eliminar</a>
               <!-- <a  class="text-red-600 hover:text-red-900" *ngIf="usuario.uid" (click)="eliminarUsuario(usuario.uid)">Eliminar</a> -->
             </td>
           </tr>

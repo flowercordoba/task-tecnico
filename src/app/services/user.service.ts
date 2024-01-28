@@ -149,7 +149,7 @@ export class UserService {
 
   guardarUsuario(usuario: Usuario) {
     return this.http.put(
-      `${base_url}/usuarios/${usuario.uid}`,
+      `${base_url}/users/${usuario.uid}`,
       usuario,
       this.headers
     );
