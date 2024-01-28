@@ -7,7 +7,6 @@ import {
   CargarUsuario,
   ILoginData,
   IRegisterData,
-  IUser,
 } from "../core/interfaces/index.interfaces";
 import { Usuario } from "../core/models/user.model";
 
@@ -142,8 +141,9 @@ export class UserService {
     );
   }
 
-  eliminarUsuario(usuario: Usuario) {
-    const url = `${base_url}/users/all/${usuario.uid}`;
+  deleteUser(usuario: Usuario) {
+    console.log('eliminando user',usuario)
+    const url = `${base_url}/users/${usuario.uid}`;
     return this.http.delete(url, this.headers);
   }
 

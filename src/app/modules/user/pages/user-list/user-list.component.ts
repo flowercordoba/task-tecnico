@@ -46,7 +46,7 @@ throw new Error('Method not implemented.');
     this.cargando = true;
     this.usuarioService.cargarUsuarios(this.desde)
       .subscribe(({ total, usuarios }) => {
-        console.log(usuarios); 
+        // console.log(usuarios); 
         this.totalUsuarios = total;
         this.usuarios = usuarios;
         this.usuariosTemp = usuarios;
@@ -76,40 +76,41 @@ throw new Error('Method not implemented.');
       .subscribe(resp => this.usuarios = resp);
   }
 
-  // eliminarUsuario(usuario: Usuario): void {
-  //   if (usuario.uid === this.usuarioService.uid) {
-  //     Swal.fire('Error', 'No puede borrarse a sí mismo', 'error');
-  //     return;
-  //   }
-
-  //   Swal.fire({
-  //     title: '¿Borrar usuario?',
-  //     text: `Está a punto de borrar a ${usuario.name}`,
-  //     icon: 'question',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Sí, borrarlo'
-  //   }).then((result) => {
-  //     if (result.value) {
-  //       this.usuarioService.eliminarUsuario(usuario)
-  //         .subscribe(_ => {
-  //           this.cargarUsuarios();
-  //           Swal.fire('Usuario borrado', `${usuario.name} fue eliminado correctamente`, 'success');
-  //         });
-  //     }
-  //   });
-  // }
-
   cambiarRole(usuario: Usuario): void {
     this.usuarioService.guardarUsuario(usuario)
       .subscribe(resp => console.log(resp));
   }
 
-  eliminarUsuario(uid: string): void {
-    // Asegúrate de que 'uid' no sea undefined antes de continuar.
-    if (!uid) return;
-  
-    // Lógica para confirmar y eliminar al usuario...
+  eliminarUsuario( usuario: Usuario): void {
+
+    Swal.fire({
+      title: '¿Borrar usuario?',
+      text: `Esta a punto de borrar a ${ usuario.name }`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, borrarlo'
+    }).then((result) => {
+      if (result.value) {
+        
+        this.usuarioService.deleteUser( usuario )
+          .subscribe( resp => {
+            
+            this.cargarUsuarios();
+            Swal.fire(
+              'Usuario borrado',
+              `${ usuario.name } fue eliminado correctamente`,
+              'success'
+            );
+            
+          });
+
+      }
+    })
+    
   }
+
+
+
   
   // abrirModal(usuario: Usuario): void {
   //   this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img);
